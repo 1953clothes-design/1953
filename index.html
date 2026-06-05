@@ -748,40 +748,34 @@
     }
 
     @media (max-width: 900px) {
-  .archives {
-    grid-template-columns: 1fr;
-    padding: 60px 24px;
-    gap: 48px;
-  }
-
-  .archives-pile {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    width: 100%;
-  }
-
-.archive-photo,
+.archives {
+        grid-template-columns: 1fr !important;
+        padding: 60px 24px;
+        gap: 48px;
+        overflow: hidden;
+      }
+      .archives-pile {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px;
+        width: 100%;
+      }
+      .archive-photo,
       .archive-placeholder {
         width: 100% !important;
         height: auto !important;
         aspect-ratio: 4/3;
+        transform: none !important;
       }
-
       .archive-photo:nth-child(3),
       .archive-placeholder:nth-child(3) {
         grid-column: span 2;
         justify-self: center;
-        width: 60% !important;
+        width: 50% !important;
+        transform: none !important;
       }
-
-      .archive-photo:nth-child(1),
-      .archive-placeholder:nth-child(1) {
-        width: 100% !important;
+      .archives-caption {
+        font-size: 1.2rem;
       }
-
-  .archives-caption {
-    font-size: 1.2rem;
-  }
 }
 
 /* ── LIGHTBOX ── */
