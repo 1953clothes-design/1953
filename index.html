@@ -704,6 +704,31 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      /* ARCHIVES MOBILE */
+.archives {
+  grid-template-columns: 1fr;
+  padding: 60px 24px;
+}
+
+.archives-pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.archive-photo {
+  width: 90vw;
+  max-width: 380px;
+  height: auto;
+  border: 3px solid #f0ebe0;
+}
+
+.archives-caption {
+  grid-column: auto;
+  font-size: 1.2rem;
+  margin-top: 24px;
+}
       nav {
         padding: 20px 24px;
       }
