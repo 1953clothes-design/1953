@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="1953 — T-shirts inspirés des rallyes automobiles belges des années 50 et 60.">
+  <meta property="og:title" content="1953 — Rallyes Belges Vintage">
+<meta property="og:description" content="L'univers des rallyes belges des années 50 et 60 capturé sur des t-shirts.">
+<meta property="og:image" content="banniere.jpg">
   <title>1953 — Rallyes Belges Vintage</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -332,10 +336,13 @@
 
 .archive-photo,
 .archive-placeholder {
-  width: 460px;
-  height: 345px;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  aspect-ratio: 4/3;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.05);
+  object-fit: cover;
+  filter: none;
   border: 8px solid #f0ebe0;
   box-shadow: 4px 4px 20px rgba(0,0,0,0.5);
   display: block;
@@ -596,7 +603,7 @@
     .footer-brand img {
       height: 60px;
       width: auto;
-      opacity: 0.15;
+      opacity: 0.3;
       filter: brightness(0) invert(1);
     }
 
@@ -804,7 +811,7 @@
   <!-- BANNIÈRE PLEINE LARGEUR -->
   <div class="banner" style="padding-top: 88px;">
     <!-- Remplace le div ci-dessous par : <img src="banniere.jpg" alt="Rallye vintage belge"> -->
-  <img src="banniere.jpg" alt="Rallye vintahe belge">
+  <img src="banniere.jpg" alt="Rallye vintage belge">
   </div>
 
   <!-- HISTOIRE -->
@@ -820,17 +827,13 @@
   <!-- ARCHIVES -->
 <section class="archives">
   <div class="archives-pile">
-     
     <img class="archive-photo" src="archive1.jpeg" alt="Album photo souvenir Spa Francorchamps">
-    </div>
 
     <img class="archive-photo" src="archive2.jpeg" alt="Album photo souvenir rallye Liège-Sofia-Liège">
-    </div>
 
     <img class="archive-photo" src="archive3.jpeg" alt="Album photo souvenir rallye Liège-Sofia-Liège">
-    </div>
-
   </div>
+
   <p class="archives-caption">Quelques pages des albums photos...</p>
 </section>
 
