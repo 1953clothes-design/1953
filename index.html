@@ -696,87 +696,80 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav {
-        padding: 20px 24px;
-      }
-      nav::after {
-        left: 24px;
-        right: 24px;
-      }
-      .nav-links {
-        gap: 24px;
-      }
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-      .hero-left {
-        padding: 140px 24px 60px;
-        min-height: 70vh;
-        justify-content: flex-end;
-      }
-      .hero-right {
-        height: 60vw;
-      }
-      .story {
-        grid-template-columns: 1fr;
-        padding: 80px 24px;
-        gap: 32px;
-      }
-      .collection {
-        padding: 60px 24px 80px;
-      }
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-      .product-card:first-child {
-        grid-column: span 1;
-        min-height: 400px;
-      }
-      .manifesto {
-        padding: 80px 24px;
-      }
-      footer {
-        grid-template-columns: 1fr;
-        padding: 48px 24px;
-        gap: 32px;
-      }
-      .footer-copy {
-        text-align: left;
-      }
-    }
-
-    @media (max-width: 900px) {
-
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav {
+    padding: 20px 24px;
+  }
+  nav::after {
+    left: 24px;
+    right: 24px;
+  }
+  .nav-links {
+    gap: 24px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-left {
+    padding: 140px 24px 60px;
+    min-height: 70vh;
+    justify-content: flex-end;
+  }
+  .hero-right {
+    height: 60vw;
+  }
+  .story {
+    grid-template-columns: 1fr;
+    padding: 80px 24px;
+    gap: 32px;
+  }
+  .collection {
+    padding: 60px 24px 80px;
+  }
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-card:first-child {
+    grid-column: span 1;
+    min-height: 400px;
+  }
+  .manifesto {
+    padding: 80px 24px;
+  }
+  footer {
+    grid-template-columns: 1fr;
+    padding: 48px 24px;
+    gap: 32px;
+  }
+  .footer-copy {
+    text-align: left;
+  }
   .archives {
     grid-template-columns: 1fr !important;
     padding: 60px 24px;
     gap: 48px;
     overflow: hidden;
   }
-
   .archives-pile {
     grid-template-columns: 1fr !important;
     gap: 32px;
     width: 100%;
     padding: 20px 16px;
   }
-
   .archive-photo,
   .archive-placeholder {
     width: 85% !important;
     height: auto !important;
     aspect-ratio: 4/3;
   }
-
   .archive-photo:nth-child(1),
   .archive-placeholder:nth-child(1) {
     transform: rotate(-3deg) !important;
     align-self: flex-start;
     margin-left: 5%;
   }
-
   .archive-photo:nth-child(2),
   .archive-placeholder:nth-child(2) {
     transform: rotate(2deg) !important;
@@ -784,7 +777,6 @@
     margin-left: auto;
     margin-right: 5%;
   }
-
   .archive-photo:nth-child(3),
   .archive-placeholder:nth-child(3) {
     grid-column: span 1 !important;
@@ -793,11 +785,9 @@
     justify-self: center;
     margin: 0 auto;
   }
-
   .archives-caption {
     font-size: 1.2rem;
   }
-
 }
 
 /* ── LIGHTBOX ── */
