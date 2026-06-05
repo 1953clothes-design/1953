@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1953 — Rallyes Belges Vintage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Titillium+Web:wght@400;600;700;900&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+:root {
+  --black: #0a0a0a;
+  --white: #f5f2ed;
+  --gray-light: #d8d4cc;
+  --gray-mid: #b8b4ac;
+  --gray-dark: #3a3835;
+  --accent: #e8e4dc;
+}
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      mix-blend-mode: normal;
+    }
+
+   
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    /* ── BANNER IMAGE ── */
+    .banner {
+      width: 100%;
+      height:100%;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.1);
+      display: block;
+    }
+
+    .banner-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--gray-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .banner-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 40% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-logo {
+      width: clamp(200px, 40vw, 480px);
+      height: auto;
+      filter: brightness(0) invert(1);
+      animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      font-weight: 300;
+      color: var(--gray-light);
+      margin-top: 20px;
+      line-height: 1.6;
+      max-width: 420px;
+      animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+
+    .hero-cta {
+      margin-top: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .hero-cta::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--white);
+      transition: width 0.4s ease;
+    }
+
+    .hero-cta:hover::after {
+      width: 80px;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image-placeholder {
+      position: absolute;
+      inset: 0;
+      background: var(--gray-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    /* Simulated vintage photo texture */
+    .hero-image-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 60%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    }
+
+    .hero-image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.1);
+      opacity: 0.85;
+    }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      letter-spacing: 0.1em;
+      text-align: right;
+    }
+
+    .image-instruction {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      text-align: center;
+    }
+
+    .image-instruction strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gray-light);
+      margin-bottom: 8px;
+      text-transform: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--gray-mid) 20%, var(--gray-mid) 80%, transparent 100%);
+      opacity: 0.3;
+    }
+
+    /* ── STORY SECTION ── */
+    .story {
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .story-label {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      padding-top: 8px;
+    }
+
+    .story-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .story-content h2 em {
+      font-style: italic;
+      color: var(--gray-light);
+    }
+
+    .story-content p {
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: var(--gray-light);
+      max-width: 600px;
+    }
+
+    .story-content p + p {
+      margin-top: 20px;
+    }
+
+   /* ── ARCHIVES ── */
+.archives {
+  padding: 100px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.archives-pile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  align-items: end;
+}
+
+.archive-photo,
+.archive-placeholder {
+  width: 460px;
+  height: 345px;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+  border: 8px solid #f0ebe0;
+  box-shadow: 4px 4px 20px rgba(0,0,0,0.5);
+  display: block;
+}
+
+.archive-placeholder {
+  background: var(--gray-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.archive-photo:nth-child(1),
+.archive-placeholder:nth-child(1) {
+  transform: rotate(-4deg);
+  justify-self: end;
+}
+
+.archive-photo:nth-child(2),
+.archive-placeholder:nth-child(2) {
+  transform: rotate(3deg);
+  justify-self: start;
+}
+
+.archive-photo:nth-child(3),
+.archive-placeholder:nth-child(3) {
+  transform: rotate(-2deg);
+  grid-column: span 2;
+  justify-self: center;
+}
+
+.archives-text {
+  max-width: 480px;
+}
+
+.archives-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.archives-text h2 em {
+  font-style: italic;
+  color: var(--gray-light);
+}
+
+.archives-text p {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--gray-light);
+}
+
+.archives-text p + p {
+  margin-top: 16px;
+}
+
+.archives-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--gray-light);
+  text-align: center;
+  margin-top: 40px;
+  letter-spacing: 0.05em;
+  grid-column: span 2;
+}
+
+    /* ── PRODUCT SECTION ── */
+    .collection {
+      padding: 80px 48px 120px;
+    }
+
+    .collection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 64px;
+    }
+
+    .collection-header h2 {
+      font-family: 'Titillium Web', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.15em;
+      color: var(--white);
+    }
+
+    .collection-header span {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--gray-dark);
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+
+    .product-card:first-child {
+      grid-column: span 2;
+      aspect-ratio: auto;
+      min-height: 600px;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      opacity: 0.85;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.04);
+      opacity: 1;
+    }
+
+    .product-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--gray-dark);
+    }
+
+    .product-image-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, transparent 70%);
+    }
+
+    .placeholder-text {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .placeholder-icon {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--gray-dark);
+      border-color: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
+      background: linear-gradient(transparent, rgba(10,10,10,0.9));
+      transform: translateY(8px);
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-info {
+      transform: translateY(0);
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .product-desc {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+    }
+
+    /* ── MANIFESTO BANNER ── */
+    .manifesto {
+      padding: 100px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(400px, 70vw, 900px);
+      height: auto;
+      background-image: url('logo.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.08;
+      pointer-events: none;
+      aspect-ratio: 3/1;
+    }
+
+    .manifesto blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--white);
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .manifesto cite {
+      display: block;
+      margin-top: 32px;
+      font-family: 'Montserrat', sans-serif;
+      font-style: normal;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+    }
+
+    /* ── CONTACT / FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 64px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: end;
+      gap: 40px;
+    }
+
+    .footer-brand img {
+      height: 60px;
+      width: auto;
+      opacity: 0.15;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-contact h3 {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 16px;
+    }
+
+    .footer-contact a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-contact a + a {
+  display: block;
+  margin-top: 8px;
+}
+
+    .footer-contact a:hover {
+      color: var(--white);
+    }
+
+
+    .footer-copy {
+      text-align: right;
+    }
+
+    .footer-copy p {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      line-height: 2;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── HORIZONTAL SCROLLING TICKER ── */
+    .ticker-wrap {
+      overflow: hidden;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .ticker {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 25s linear infinite;
+    }
+
+    .ticker-item {
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      color: var(--gray-mid);
+      padding: 0 48px;
+    }
+
+    .ticker-dot {
+      color: rgba(255,255,255,0.15);
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav {
+        padding: 20px 24px;
+      }
+      nav::after {
+        left: 24px;
+        right: 24px;
+      }
+      .nav-links {
+        gap: 24px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-left {
+        padding: 140px 24px 60px;
+        min-height: 70vh;
+        justify-content: flex-end;
+      }
+      .hero-right {
+        height: 60vw;
+      }
+      .story {
+        grid-template-columns: 1fr;
+        padding: 80px 24px;
+        gap: 32px;
+      }
+      .collection {
+        padding: 60px 24px 80px;
+      }
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .product-card:first-child {
+        grid-column: span 1;
+        min-height: 400px;
+      }
+      .manifesto {
+        padding: 80px 24px;
+      }
+      footer {
+        grid-template-columns: 1fr;
+        padding: 48px 24px;
+        gap: 32px;
+      }
+      .footer-copy {
+        text-align: left;
+      }
+    }
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  filter: grayscale(100%) contrast(1.05);
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="logo.svg" alt="1953" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#histoire">Histoire</a></li>
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- BANNIÈRE PLEINE LARGEUR -->
+  <div class="banner" style="padding-top: 88px;">
+    <!-- Remplace le div ci-dessous par : <img src="banniere.jpg" alt="Rallye vintage belge"> -->
+  <img src="banniere.jpg" alt="Rallye vintahe belge">
+  </div>
+
+  <!-- HISTOIRE -->
+  <section class="story" id="histoire">
+    <p class="story-label reveal">Notre histoire</p>
+    <div class="story-content">
+      <h2 class="reveal">Raviver l'esprit des <em>rallyes automobiles vintage</em></h2>
+      <p class="reveal">Nous sommes Lilli et Romy, deux sœurs passionnées par l'univers automobile et les vieilles voitures. Suite à la découverte des albums photos de rallyes de notre grand-père, nous avons décidé de partager cet univers automobile passionnant en créant notre propre marque : 1953.</p>
+      <p class="reveal">Le nom de la marque est l'année du premier rallye auquel a participé notre grand-père. Notre objectif est de raviver l'esprit des rallyes vintage à travers des photos authentiques figées sur des pièces de qualité.</p>
+    </div>
+  </section>
+
+  <!-- ARCHIVES -->
+<section class="archives">
+  <div class="archives-pile">
+     
+    <img class="archive-photo" src="archive1.jpeg" alt="Album photo souvenir Spa Francorchamps">
+    </div>
+
+    <img class="archive-photo" src="archive2.jpeg" alt="Album photo souvenir rallye Liège-Sofia-Liège">
+    </div>
+
+    <img class="archive-photo" src="archive3.jpeg" alt="Album photo souvenir rallye Liège-Sofia-Liège">
+    </div>
+
+  </div>
+  <p class="archives-caption">Quelques pages des albums photos...</p>
+</section>
+
+  <div class="divider"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <img src="logo.svg" alt="1953" class="hero-logo" />
+      <p class="hero-tagline">L'univers des rallyes belges des années 50 et 60 capturé sur des t-shirts</p>
+      <a href="#collection" class="hero-cta">Découvrir la collection</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image-placeholder">
+        <!-- Remplace cette div par : <img src="ton-image-hero.jpg" alt="Rallye vintage belge" /> -->
+        <img src="1953_1.jpg" alt="Rallye vintage belge" />
+      </div>
+      <div class="photo-caption">Auto Union 1000 SP — Belgique</div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span class="ticker-item">Rallyes Belges <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Années 50 &amp; 60 <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Auto Union 1000 SP <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Photographies Noir et Blanc <span class="ticker-dot">✦</span></span>
+      <!-- Doublon pour boucle infinie -->
+      <span class="ticker-item">Rallyes Belges <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Années 50 &amp; 60 <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Auto Union 1000 SP <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Photographies Noir et Blanc <span class="ticker-dot">✦</span></span>
+    </div>
+  </div>
+
+  <!-- COLLECTION -->
+  <section class="collection" id="collection">
+
+    <div class="product-grid">
+
+      <!-- Produit principal -->
+      <div class="product-card reveal">
+        <div class="product-image-placeholder">
+            <img src="shooting train.jpg" alt="T-shirt Auto Union 1000 SP" onclick="openLightbox(this.src, this.alt)" style="cursor: zoom-in;">
+        </div>
+        <div class="product-info">
+          <p class="product-name">Auto Union 1000 SP</p>
+          <p class="product-desc">Premier modèle</p>
+        </div>
+      </div>
+
+      <!-- Produit 2-->
+      <div class="product-card reveal">
+        <div class="product-image-placeholder">
+          <img src="shooting axis.JPG" alt="T-shirt noir rallye automobile" onclick="openLightbox(this.src, this.alt)" style="cursor: zoom-in;">
+        </div>
+        <div class="product-info">
+          <p class="product-name">Rallye des 12 heures de Huy 1956</p>
+          <p class="product-desc">Deuxième modèle</p>
+        </div>
+      </div> 
+
+      <!-- 
+      Produit 3
+      <div class="product-card reveal">
+        <div class="product-image-placeholder">
+          <img src="produit-porte.jpg" alt="T-shirt porté">
+          <p class="placeholder-text">Photo porté /<br>ambiance</p>
+        </div>
+        <div class="product-info">
+          <p class="product-name">1953 — En porter</p>
+          <p class="product-desc">Lifestyle</p>
+        </div>
+      </div> -->
+
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <blockquote class="reveal">
+      « Les albums photo de rallyes de notre grand-père nous semblaient être un véritable trésor que nous avions envie de partager. »
+      <cite>— Lilli &amp; Romy, fondatrices de 1953</cite>
+    </blockquote>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-brand">
+      <img src="logo.svg" alt="1953" />
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <a href="mailto:1953clothes@gmail.com">1953clothes@gmail.com</a>
+      <a href="https://www.instagram.com/1953clothes/" target="_blank">Instagram</a>
+    </div>
+
+    <div class="footer-copy">
+      <p>Marque belge</p>
+      <p>Rallyes vintage 1950–1960</p>
+      <p style="margin-top:16px; opacity:0.5;">© 2026 — Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger delays for grid items
+    document.querySelectorAll('.product-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.1}s`;
+    });
+
+    // Lightbox
+function openLightbox(src, alt) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = alt;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target !== document.getElementById('lightbox-img')) {
+    closeLightbox();
+  }
+});
+  </script>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">Fermer ✕</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+</body>
+</html>
